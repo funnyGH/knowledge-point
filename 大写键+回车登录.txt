@@ -1,0 +1,148 @@
+====================大写键开启兼容谷歌、火狐、（IE自带）——最终版最终版最终版最终版最终版最终版===================
+$('.keypress').bind('keypress',function(event){
+            if(event.keyCode == "13"){
+    		   if (event.keyCode==13){ //回车键的键值为13
+    		   	   document.getElementById("login").click(); //调用登录按钮的登录事件
+    		   } 
+    		}; 
+        });
+       	
+       	 
+       	function isIE(){ 
+       	    if(!!window.ActiveXObject || "ActiveXObject" in window){ 
+       	        return true; 
+       	    }   
+       	    else{ 
+       	        return false; 
+       	    } 
+       	} 
+       	(function(){ 
+       	    var inputPWD=document.getElementById('password'); 
+       	    var capital=false; 
+       	    var capitalTip={ 
+       	        elem:document.getElementById('capital'), 
+       	        toggle:function(s){ 
+	       	        var sy=this.elem.style; 
+	       	        var d=sy.display; 
+	       	        if(s){ 
+	       	          sy.display = s; 
+	       	        }
+	       	        else{ 
+	       	          sy.display=d=='none'?'block':'none'; 
+	       	        } 
+	       	    } 
+       	    }    
+       	    if(!isIE()){  
+       	        inputPWD.onkeyup = function(event){  
+	       	        var e = event||window.event;  
+	       	        var keyvalue = e.keyCode ? e.keyCode : e.which;  
+	       	        var shifKey = e.shiftKey ? e.shiftKey:((keyvalue == 16) ? true : false);  
+	       	        var strlen = inputPWD.value.length;    
+	       	        if(strlen){  
+	       	            var uniCode = inputPWD.value.charCodeAt(inputPWD.value.length-1);  
+	       	            if(keyvalue>=65 && keyvalue<=90){     //如果是字母键  
+	       	                if(((uniCode >= 65 && uniCode <= 90) && !shifKey)||((uniCode >= 97 && uniCode <= 122) && shifKey)){  
+	       	                	capitalTip.toggle("block"); 
+	       	                	//return true;  //开启  
+	       	                }else{  
+	       	                	capitalTip.toggle("none"); 
+	       	                	//return false;  //未开启  
+	       	                }  
+	       	            }  
+	       	        }  
+	       	    };   
+       	    	$('.keypress').blur(function(){ 
+       	    		capitalTip.toggle('none');
+       	    	});
+       	    }
+        }());
+
+
+
+====================大写键开启===================	
+	function detectCapsLock(event){ 
+		    var e = event||window.event;
+		    var o = e.target||e.srcElement;
+		    var oTip = o.nextSibling;
+		    var keyCode  =  e.keyCode||e.which; // 按键的keyCode 
+		    var isShift  =  e.shiftKey ||(keyCode  ==   16 ) || false ; 
+		    if (((keyCode >=   65   &&  keyCode  <=   90 )  &&   !isShift) || ((keyCode >=   97   &&  keyCode  <=   122 )  &&  isShift)){
+		    	layer.tips('大写键已启用!','#password',{
+		    		 tips: [4, '#c00']
+		    	})
+			}
+		     
+		}
+        
+        function maskingKeyboard(event){ 
+        	e = event || window.event;
+        	var kcode = e.which || e.keyCode;
+        	if(kcode === 20) { 
+        		alert("4")
+		    	layer.tips('大写键已启用!','#password',{
+		    		 tips: [4, '#c00']
+		    	})  
+        	}
+       	}
+       	document.onkeydown = maskingKeyboard; 
+ 
+==================大写键开启兼容谷歌、火狐、（IE自带）==============================
+	function isIE(){ 
+       	    if(!!window.ActiveXObject || "ActiveXObject" in window){ 
+       	        return true; 
+       	    }   
+       	    else{ 
+       	        return false; 
+       	    } 
+       	} 
+       	(function(){ 
+       	    var inputPWD=document.getElementById('password'); 
+       	    var capital=false; 
+       	    var capitalTip={ 
+       	        elem:document.getElementById('capital'), 
+       	        toggle:function(s){ 
+	       	        var sy=this.elem.style; 
+	       	        var d=sy.display; 
+	       	        if(s){ 
+	       	          sy.display = s; 
+	       	        }
+	       	        else{ 
+	       	          sy.display=d=='none'?'block':'none'; 
+	       	        } 
+	       	    } 
+       	    }   
+       	    var detectCapsLock=function(event){ 
+      	    	if(capital){return}; 
+       	        var e = event||window.event; 
+       	        var keyCode = e.keyCode||e.which;
+       	        var isShift = e.shiftKey ||(keyCode == 16 ) || false ;
+       	        if(((keyCode>=65&&keyCode<=90 )&&!isShift)||((keyCode>=97&&keyCode<=122 )&&isShift)){
+	       	        capitalTip.toggle('block');
+	       	        capital=true
+       	        } 
+       	        else{
+       	            capitalTip.toggle('none');
+       	        } 
+       	    } 
+       	    if(!isIE()){ 
+       	        inputPWD.onkeypress=detectCapsLock; 
+       	        inputPWD.onkeyup=function(event){ 
+	       	        var e = event||window.event; 
+	       	        if(e.keyCode == 20 && capital){  
+	       	            capitalTip.toggle(); 
+	       	            return false; 
+	       	        } 
+       	        } 
+       	    }
+        })()
+
+
+===============回车登录====================
+        $('.keypress').bind('keypress',function(event){
+            if(event.keyCode == "13"){
+    		   if (event.keyCode==13){ //回车键的键值为13
+    		   	   document.getElementById("login").click(); //调用登录按钮的登录事件
+    		   } 
+    		} 
+        });
+       	

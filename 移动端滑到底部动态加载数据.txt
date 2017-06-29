@@ -1,0 +1,75 @@
+$(window).scroll(function(){
+		        var scrollTop = $(this).scrollTop();
+		        var scrollHeight = $(document).height();
+		        var windowHeight = $(window).height(); 
+		        if (scrollTop + windowHeight == scrollHeight) {
+		        	var pageNo = $("#pageNo").val();
+	            	var totalPage = $("#totalPage").val();
+	            	$("#loading").show();
+	            	if(parseInt(pageNo) < parseInt(totalPage)){
+	            		$("#pageNo").val(parseInt(pageNo)+1);
+		            	getjosnList();
+	            	}else{
+	            		$("#loading").html("没有数据了！");
+	            	} 
+		        }
+		    });
+
+
+
+
+
+========================== 
+$(window).scroll(function(){
+        var scrollTop = $(this).scrollTop();
+        var scrollHeight = $(document).height();
+        var windowHeight = $(window).height();
+        var lock = true；
+        if (scrollTop + windowHeight == scrollHeight) {
+            if(lock){
+                console.log('没有更多数据');
+                return false;
+            }
+            lock = true ;
+            $.ajax({
+                type:'get',
+                url:'&start='+start+'&offset='+offset,
+                data:'',
+                success:function(a){
+                    if(a.length > 0){
+                        for (var i = 0; i < a.length; i++) {
+                            html += '<li data-id="' + a[i].tid + '">';
+                            html += '<div class="img">';
+                            html += '<img src="images/default-358-358.png" data-src="' + a[i].attachment + '">';
+                            html += '</div>';
+                            html += '</li>';
+                        }
+                    $('.picture-list').append(html);
+                    //图片懒加载
+                    $.imgLazy({viewport: true});
+                    $('img:gt('+(start-1)+')').each(function(index){
+                        $(this).bind('load',function(){
+                            if($(this).width() > $(this).height()){
+                                $(this).css({'height':liHeight,'width':'auto'})
+                            }else{
+                                $(this).css({'width':liWidth,'height':'auto'})
+                            }
+                        }).bind('error',function(){
+                        //图片加载错误，加入错误处理
+
+                        })
+                    })
+                    start += offset;
+                    html = '';
+                    lock = false;
+                }else{
+                    tips('没有更多数据', 1500);
+                }
+            },
+            error:function(a){
+                tips('加载失败', 1500);
+            },
+            dataType:'json'
+            });
+        }
+    });

@@ -1,0 +1,33 @@
+VP.enter_full_screen = function () {
+	    Af.trace("全屏");
+
+	    elem = document.getElementById("video-player-panel");
+	    if (elem.webkitRequestFullScreen) {
+	        elem.webkitRequestFullScreen();
+	    } else if (elem.mozRequestFullScreen) {
+	        elem.mozRequestFullScreen();
+	    } else if (elem.requestFullScreen) {
+	        elem.requestFullscreen();
+	    } else {
+	        //浏览器不支持全屏API或已被禁用  
+	    }
+	    VP.screen_status = true;
+	    var target = $("[role='full-screen']", VP.toolbar).children("img");
+	    target.attr("src", "image/exit.png");
+	    VP.infobar.show();
+
+	}
+	VP.exit_full_screen = function () {
+	    Af.trace("退出");
+
+	    if (document.webkitCancelFullScreen) {
+	        document.webkitCancelFullScreen();
+	    } else if (document.mozCancelFullScreen) {
+	        document.mozCancelFullScreen();
+	    } else if (document.cancelFullScreen) {
+	        document.cancelFullScreen();
+	    } else if (document.exitFullscreen) {
+	        document.exitFullscreen();
+	    } else {
+	        //浏览器不支持全屏API或已被禁用  
+	    }

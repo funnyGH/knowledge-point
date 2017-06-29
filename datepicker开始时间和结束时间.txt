@@ -1,0 +1,31 @@
+1. 默认只能选一个月区间内的日期：
+
+<p>
+    <input type="text" placeholder="上架时间" class="time" id="strbeginDateTimes" name="strbeginDateTimes"
+	 onfocus="var strendDateTimes=$dp.$('strendDateTimes');WdatePicker({onpicked:function(){strendDateTimes.focus();},maxDate:'#F{$dp.$D(\'strendDateTimes\')}',dateFmt:'yyyy-MM-dd'})" >
+</p>
+<p>
+    <input type="text" placeholder="下架时间" readonly="readonly" class="time" id="strendDateTimes" 
+	name="strendDateTimes" type="text"onfocus="WdatePicker({startDate:'%y-%M-01 00:00:00',minDate:'#F{$dp.$D(\'strbeginDateTimes\')}',maxDate:'#F{$dp.$D(\'strbeginDateTimes\',{d:+30})}',dateFmt:'yyyy-MM-dd'})">
+</p>
+
+
+
+2. 取今天和一周前的日期：
+
+function setDate(){
+        var today=new Date();
+        var h=today.getFullYear();
+        var m=today.getMonth()+1;
+        var d=today.getDate();
+        m= m<10?"0"+m:m;
+        d= d<10?"0"+d:d;
+        $("#strendDateTimes").val(h+"-"+m+"-"+d);
+        
+        var date = new Date(today.getTime() - 7 * 24 * 3600 * 1000);
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        $("#strbeginDateTimes").val(year + '-' + month + '-' + day);
+
+}

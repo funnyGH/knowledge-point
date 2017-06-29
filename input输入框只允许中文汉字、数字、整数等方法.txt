@@ -1,0 +1,63 @@
+只允许输入数字和小数点
+
+1
+<input onKeypress="return (/[\d.]/.test(String.fromCharCode(event.keyCode)))" style="ime-mode:Disabled"> 
+判断是否是数字
+
+1
+2
+3
+4
+5
+6
+7
+8
+<script> 
+function check(){ 
+if (isNaN(tt.value)) 
+{alert("非法字符！"); 
+tt.value="";} 
+} 
+</script> 
+<input type="text" name="tt" onkeyup="check();"> 
+只允许输入整数
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+<script language=javascript>
+  function onlyNum()
+  {
+  if(!(event.keyCode==46)&&!(event.keyCode==8)&&!(event.keyCode==37)&&!(event.keyCode==39))
+  if(!((event.keyCode>=48&&event.keyCode<=57)||(event.keyCode>=96&&event.keyCode<=105)))
+  event.returnValue=false;
+  }
+</script>
+<input onkeydown="onlyNum();" style="ime-mode:Disabled>
+style="ime-mode:Disabled"这句是比较实用的。意为关闭输入法。省得有些人开着全角输入数字，结果输入不进去来找你哭天抹泪的，还怪你设计的不好。
+只允许输入数字
+
+1
+<input name="username" type="text" onkeyup="value=this.value.replace(/\D+/g,'')"> 
+只允许输入英文字母、数字和下划线(以下二种方法实现)
+
+1
+2
+<input name="username" type="text" style="ime-mode:disabled"> 
+<input name="username" type="text" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')">
+只允许输入英文字母、数字和&=@
+
+1
+<input name="username" type="text" onkeyup="value=value.replace(/[^\w=@&]|_/ig,'')"> 
+只允许输入汉字
+
+1
+2
+<input name="username" type="text" onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')">
+<input name="username" type="text" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')"> 
